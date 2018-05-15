@@ -2,3 +2,26 @@ sqoop list-databases
 --connect "jdbc:mysql://ip-172-31-13-154"
 --username=sqoopuser 
 --password=NHkkP876rp
+
+
+sqoop list-tables \
+--connect "jdbc:mysql://ip-172-31-13-154/retail_db" \
+--username=sqoopuser \
+--password=NHkkP876rp 
+
+order_items
+
+sqoop eval \
+--connect "jdbc:mysql://ip-172-31-13-154/retail_db" \
+--username=sqoopuser \
+--password=NHkkP876rp \
+--query "select * from order_items limit 100"
+
+sqoop import-all-tables \
+  -m 12 \
+  --connect "jdbc:mysql://ip-172-31-13-154/retail_db" \
+  --username=sqoopuser \
+  --password=NHkkP876rp \
+  --as-textfile \
+  --warehouse-dir=hdfs://ip-172-31-53-48.ec2.internal:8020/apps/hive/warehouse/retail_db.db
+
